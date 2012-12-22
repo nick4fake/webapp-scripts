@@ -22,6 +22,7 @@ class Hasher
 
         $hashTable = array();
 
+        $count = 0;
         foreach ($list as $package) {
             $package = trim($package);
             echo 'Compiling ' . $package . "\n";
@@ -64,10 +65,11 @@ class Hasher
             file_put_contents($tdir . '/.hashes', $hashes);
 
             $hashTable[] = sha1($package) . '=' . sha1($hashes);
+            $count++;
         }
 
         file_put_contents($dir_dest . '/.hashes', join("\n", $hashTable) . "\n");
-        return true;
+        return $count;
     }
 
     protected function rmDir($directory, $empty = false)

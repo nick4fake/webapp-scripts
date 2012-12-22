@@ -12,4 +12,4 @@ $hasher = new Hasher(
 $res = $hasher->hash();
 
 ob_end_clean();
-echo $res ? 'ok' : 'error';
+echo $res ? 'processed ' . $res . ' packages' : 'error';
