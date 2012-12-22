@@ -9,7 +9,8 @@ class Hasher
     protected $dirSrc;
     protected $dirDest;
 
-    public function __construct($dirSrc, $dirDest) {
+    public function __construct($dirSrc, $dirDest)
+    {
         $this->dirSrc = $dirSrc;
         $this->dirDest = $dirDest;
     }
@@ -19,6 +20,7 @@ class Hasher
         $dir_src = $this->dirSrc;
         $dir_dest = $this->dirDest;
         $list = file($dir_src . '/.packages');
+        copy($dir_src . '/.packages', $dir_dest . '/.packages');
 
         $hashTable = array();
 
