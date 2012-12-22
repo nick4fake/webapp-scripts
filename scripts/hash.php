@@ -42,7 +42,7 @@ class Hasher
             // Перечень файлов и зависимостей
             $lfiles = explode(',', $data['files']['files']);
             $lres = explode(',', $data['files']['res']);
-            $deps = explode(',', $data['files']['deps']);
+            //$deps = explode(',', $data['files']['deps']);
 
             // Хеши файлов
             $hashes = array();
@@ -66,7 +66,9 @@ class Hasher
             $hashes = join("\n", $hashes) . "\n";
             file_put_contents($tdir . '/.hashes', $hashes);
 
-            $hashTable[] = sha1($package) . '=' . sha1($hashes);
+            $hashTable[] = sha1($package) . '=' . sha1(
+                sha1_file($tdir . '/.hashes') . sha1_file($tdir . '/.package.ini')
+            );
             $count++;
         }
 
