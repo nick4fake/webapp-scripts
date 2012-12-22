@@ -2,7 +2,7 @@
 namespace Werkint;
 
 ob_start();
-$curdir = dirname(realpath(__FILE__) . '/..');
+$curdir = dirname(realpath(__FILE__)) . '/..';
 require_once(__DIR__ . '/hash.php');
 
 $hasher = new Hasher(
