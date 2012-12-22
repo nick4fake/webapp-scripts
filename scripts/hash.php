@@ -10,6 +10,7 @@ class Hasher
     protected $dirDest;
 
     public function __construct($dirSrc, $dirDest) {
+        echo 'src:'.$dirSrc.'<hr>'.'dest:'.$dirDest;
         $this->dirSrc = $dirSrc;
         $this->dirDest = $dirDest;
     }
