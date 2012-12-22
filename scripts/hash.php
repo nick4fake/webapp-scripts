@@ -118,9 +118,3 @@ class Hasher
         return $zip;
     }
 }
-
-$hasher = new Hasher(
-    __DIR__ . '/src',
-    __DIR__ . '/packages'
-);
-$hasher->hash();
