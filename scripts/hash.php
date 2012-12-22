@@ -52,12 +52,12 @@ class Hasher
                 }
                 if (is_dir($pdir . '/' . $file)) {
                     $zip = new ZipArchive();
-                    $zip->open($tdir . '/' . $file . '.tar', ZipArchive::CREATE);
+                    $zip->open($tdir . '/' . $file . '.zip', ZipArchive::CREATE);
                     $this->addDirectoryToZip(
                         $zip, $pdir . '/' . $file, $pdir
                     );
                     $zip->close();
-                    $file .= '.tar';
+                    $file .= '.zip';
                 } else {
                     symlink($pdir . '/' . $file, $tdir . '/' . $file);
                 }
