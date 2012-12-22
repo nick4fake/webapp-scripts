@@ -10,7 +10,6 @@ class Hasher
     protected $dirDest;
 
     public function __construct($dirSrc, $dirDest) {
-        echo 'src:'.$dirSrc.'<hr>'.'dest:'.$dirDest;
         $this->dirSrc = $dirSrc;
         $this->dirDest = $dirDest;
     }
@@ -68,6 +67,7 @@ class Hasher
         }
 
         file_put_contents($dir_dest . '/.hashes', join("\n", $hashTable) . "\n");
+        return true;
     }
 
     protected function rmDir($directory, $empty = false)

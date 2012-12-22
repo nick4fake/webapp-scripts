@@ -9,7 +9,7 @@ $hasher = new Hasher(
     $curdir . '/src',
     __DIR__ . '/packages'
 );
-$hasher->hash();
+$res = $hasher->hash();
 
 ob_end_clean();
-echo 'ok';
+echo $res ? 'ok' : 'error';
