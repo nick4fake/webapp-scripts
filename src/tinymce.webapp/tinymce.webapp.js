@@ -7,7 +7,7 @@
             plugins:                           ['autolink', 'lists', 'pagebreak', 'style', 'images', 'video', 'mylink', 'inlinepopups', 'searchreplace', 'paste', 'directionality', 'noneditable', 'xhtmlxtras', 'template', 'advlist'],
             theme_advanced_toolbar_location:   'top',
             theme_advanced_toolbar_align:      'center',
-            theme_advanced_statusbar_location: 'bottom',
+            theme_advanced_statusbar_location: 'none',
             theme:                             'advanced',
             language:                          'ru',
             object_resizing:                   false,
