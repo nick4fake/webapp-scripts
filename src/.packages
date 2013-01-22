@@ -1,6 +1,7 @@
 apngcanvas
 css3improve
 elements.scss
+fineuploader
 flist
 google-analytics
 highcharts
@@ -24,6 +25,7 @@ moment
 normalize.scss
 pagination
 select2
+smartwizard
 tinymce
 tinymce.jquery
 tinymce.popup
