@@ -9,7 +9,7 @@
 	var tips = [],
 		reBgImage = /^url\(["']?([^"'\)]*)["']?\);?$/i,
 		rePNG = /\.png$/i,
-		ie6 = $.browser.msie && $.browser.version == 6;
+		ie6 = false;
 
 	// make sure the tips' position is updated on resize
 	function handleWindowResize() {

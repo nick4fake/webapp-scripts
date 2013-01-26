@@ -63,7 +63,7 @@
 			});
 
 			$(els[first]).css('opacity', 1).show(); // opacity bit needed to handle reinit case
-			if ($.browser.msie) els[first].style.removeAttribute('filter');
+			if (navigator.userAgent.indexOf("MSIE") > -1) els[first].style.removeAttribute('filter');
 
 			if (opts.fit && opts.width)
 				$slides.width(opts.width);
@@ -143,7 +143,7 @@
 					o.apply(next, [curr, next, opts, fwd]);
 				});
 			var after = function () {
-				if ($.browser.msie)
+				if (navigator.userAgent.indexOf("MSIE") > -1)
 					this.style.removeAttribute('filter');
 				$.each(opts.after, function (i, o) {
 					o.apply(next, [curr, next, opts, fwd]);

@@ -72,9 +72,9 @@ $.extend({
 
 $.extend($.fn.disableTextSelect = function () {
 	return this.each(function () {
-		if ($.browser.mozilla) {//Firefox
+		if (navigator.userAgent.indexOf("Gecko")) {//Firefox
 			$(this).css('MozUserSelect', 'none');
-		} else if ($.browser.msie) {//IE
+		} else if (navigator.userAgent.indexOf("MSIE") > -1) {//IE
 			$(this).bind('selectstart', function () {
 				return false;
 			});
