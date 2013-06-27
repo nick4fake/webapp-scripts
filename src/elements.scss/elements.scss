@@ -46,6 +46,16 @@
 @mixin gradient($start: #EEE, $stop: #FFF) {
   @include gradient-double($start, 0, $stop, 100);
 }
+@mixin gradient-triple-hor($start: #EEE, $start-num: 0, $center: #EEE, $center-num: 0, $stop: #FFF, $stop-num: 100){
+  $start-per: "#{$start-num}%";
+  $start-num: $start-num/100;
+  $center-per: "#{$center-num}%";
+  $center-num: $center-num/100;
+  $stop-per: "#{$stop-num}%";
+  $stop-num: $stop-num/100;
+  @include -gradient-chunk($start, $stop, "linear, left top, right top, color-stop(#{$start-num}, #{$start}), color-stop(#{$center-num}, #{$center}), color-stop(#{$stop-num}, #{$stop})", "left, #{$start} #{$start-per}, #{$center} #{$center-per}, #{$stop} #{$stop-per}");
+  -ms-filter: none;
+}
 
 @mixin box-shadow($arguments) {
   -webkit-box-shadow: $arguments;
