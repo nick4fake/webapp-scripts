@@ -20,7 +20,7 @@ void function ($, generalClass) {
         },
         panel:        null,
         paging:       null,
-        noresMessage: 'Результатов нет',
+        noresMessage: 'Ничего не найдено',
         colregex:     {
             exp:   /^(.*\s)?col-([a-z0-9_A-Z]+)(\s.*)?$/,
             index: 2
@@ -31,7 +31,8 @@ void function ($, generalClass) {
             callback:            null,
             items_per_page:      1,
             current_page:        null
-        }
+        },
+        forceSummary:   true
     };
 
     var f = {
@@ -279,7 +280,9 @@ void function ($, generalClass) {
                     if (data.length) {
                         this.updateRows(this.columns, tBody.get(0), data, {}, summary, tFoot.get(0));
                     } else {
-                        this.updateState('Ничего не найдено');
+                        this.updateState(settings.noresMessage);
+                        if(settings.forceSummary && summary!='undefined')
+                            this.updateRows(this.columns, tBody.get(0), data, {}, summary, tFoot.get(0));
                     }
                 } else {
                     this.updateState('Ошибочный статус');
