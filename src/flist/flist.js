@@ -20,6 +20,7 @@ void function ($, generalClass) {
         },
         panel:        null,
         paging:       null,
+        disable_submit: false,
         noresMessage: 'Ничего не найдено',
         colregex:     {
             exp:   /^(.*\s)?col-([a-z0-9_A-Z]+)(\s.*)?$/,
@@ -86,7 +87,8 @@ void function ($, generalClass) {
                 }, post, {root: null});
             });
             return function () {
-                form.submit();
+                if(settings.disable_submit==false)
+                    form.submit();
             };
         },
         updateRows:     function (columns, target, rows, settings, summary, targetfoot) {
@@ -243,6 +245,9 @@ void function ($, generalClass) {
                 $(this).closest('form').submit();
             });
 
+            this.updateEnable = function(){
+                settings.disable_submit = false;
+            };
             this.update = f.bindFormUpdate(this, settings);
 
             // Сортировка
