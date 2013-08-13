@@ -18,6 +18,14 @@
   }
 }
 .list-filtered {
+  tfoot {
+    font-size: 1.1em;
+    font-weight: 900;
+    border-top-color: black;
+    border-top-style: double;
+    border-top-width: 4px;
+    background-color: #EEF;
+  }
   width: 100%;
   .message, .preloader {
     text-align:     center;
