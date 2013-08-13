@@ -1,6 +1,6 @@
 apngcanvas
-css3improve
 colorpicker
+css3improve
 elements.scss
 fineuploader
 flist
@@ -19,6 +19,7 @@ jquery.maskedinput
 jquery.misc
 jquery.numeric
 jquery.poshytip
+jquery.treeview
 jquery.ui
 jquery.ui.core
 jquery.ui.timepicker
