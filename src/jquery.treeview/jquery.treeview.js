@@ -248,4 +248,4 @@
         hitarea: "hitarea"
     });
 
-})(jQuery);w
+})(jQuery);
