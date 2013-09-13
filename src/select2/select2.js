@@ -1696,8 +1696,8 @@
                 "class": "select2-container"
             }).html([
                     "<a href='javascript:void(0)' onclick='return false;' class='select2-choice' tabindex='-1'>",
-                    "   <span class='row'>&nbsp;</span><abbr class='select2-search-choice-close'></abbr>",
-                    "   <div class='arrow'><b></b></div>" ,
+                    "   <span>&nbsp;</span><abbr class='select2-search-choice-close'></abbr>",
+                    "   <div><b></b></div>" ,
                     "</a>",
                     "<input class='select2-focusser select2-offscreen' type='text'/>",
                     "<div class='select2-drop select2-display-none'>" ,
