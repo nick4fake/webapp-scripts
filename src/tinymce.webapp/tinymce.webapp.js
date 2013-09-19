@@ -10,7 +10,7 @@
             theme_advanced_statusbar_location: 'none',
             theme:                             'advanced',
             language:                          'ru',
-            object_resizing:                   false,
+            object_resizing:                   true,
             content_css:                       CONST.webapp_res + '/tinymce/paragraph.css',
             convert_urls:                      false,
             pagebreak_separator:               '<!--more-->'
