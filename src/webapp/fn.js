@@ -1,5 +1,3 @@
-app.log('App functions were included');
-
 // Индикатор загрузки
 app.conf.preloader = '#preloader';
 app.data.loading = 0;

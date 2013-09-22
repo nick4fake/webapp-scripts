@@ -103,4 +103,3 @@ window.app = new (function () {
 
 	window.$fn = this.fn;
 });
-app.log('App is ready');
