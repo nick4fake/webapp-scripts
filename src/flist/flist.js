@@ -277,7 +277,7 @@ void function ($, generalClass) {
                     ).appendTo(tBody);
                 } else if (typeof data == 'undefined') {
                     $('<tr>').append(
-                        $('<td>').html('<img src="' + CONST.webapp_res + '/flist/preloader.gif" alt="preloader" />').
+                        $('<td>').html('<img src="' + $webapp.respath + '/flist/preloader.gif" alt="preloader" />').
                             addClass('preloader').
                             attr('colspan', this.columns.length)
                     ).appendTo(tBody);

@@ -1,7 +1,7 @@
 (function (d, w, c) {
 	(w[c] = w[c] || []).push(function() {
 		try {
-			w['yaCounter'+CONST.ym_id] = new Ya.Metrika({id:CONST.ym_id, enableAll: true, ut:"noindex", webvisor:true});
+			w['yaCounter'+$webapp.var.ym_id] = new Ya.Metrika({id:$webapp.var.ym_id, enableAll: true, ut:"noindex", webvisor:true});
 } catch(e) {}
 });
 

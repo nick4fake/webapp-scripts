@@ -22,7 +22,7 @@
 			ed.addButton('video', {
 				title:'Видео',
 				cmd:  'mceVideo',
-				image:CONST.webapp_res + '/tinymce/tiny_mce/plugins/video/video.png'
+				image:$webapp.respath + '/tinymce/tiny_mce/plugins/video/video.png'
 			});
 
 			ed.onNodeChange.add(function (ed, cm, n) {

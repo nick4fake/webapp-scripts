@@ -1,5 +1,5 @@
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', CONST.ga_id]);
+_gaq.push(['_setAccount', $webapp.var.ga_id]);
 _gaq.push(['_trackPageview']);
 
 (function () {

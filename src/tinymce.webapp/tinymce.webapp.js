@@ -11,7 +11,7 @@
             theme:                             'advanced',
             language:                          'ru',
             object_resizing:                   true,
-            content_css:                       CONST.webapp_res + '/tinymce/paragraph.css',
+            content_css:                       $webapp.respath + '/tinymce/paragraph.css',
             convert_urls:                      false,
             pagebreak_separator:               '<!--more-->'
         },
@@ -22,7 +22,7 @@
             ['bold', 'italic', 'underline', true, 'justifyleft', 'justifycenter', 'justifyright', 'formatselect', 'bullist', 'numlist', true, 'link', 'unlink', 'images', 'video', true, 'pagebreak', true, 'code'],
             [], [], []
         ],
-        script_url: CONST.webapp_res + '/tinymce/tiny_mce/tiny_mce.js'
+        script_url: $webapp.respath + '/tinymce/tiny_mce/tiny_mce.js'
     };
 
     /**
