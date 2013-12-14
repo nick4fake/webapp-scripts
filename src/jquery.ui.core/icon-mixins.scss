@@ -2,7 +2,7 @@
 	$ui-icon-size = 16;
 	$ui-iconset-height = 240;
 	$ui-iconset-width = 256;
-	background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+	background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
 	width:               #{$ui-icon-size}px;
 	height:              #{$ui-icon-size}px;
 	$posx = "-#{$posx * 100}%";

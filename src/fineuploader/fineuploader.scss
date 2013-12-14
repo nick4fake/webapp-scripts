@@ -94,7 +94,7 @@
 
 .qq-upload-spinner {
   display: inline-block;
-  background: url("#{$const-webapp-res}/fineuploader/loading.gif");
+  background: url("#{$webapp-respath}/fineuploader/loading.gif");
   width: 15px;
   height: 15px;
   vertical-align: text-bottom
@@ -106,7 +106,7 @@
 
 .qq-drop-processing-spinner {
   display: inline-block;
-  background: url("#{$const-webapp-res}/fineuploader/processing.gif");
+  background: url("#{$webapp-respath}/fineuploader/processing.gif");
   width: 24px;
   height: 24px;
   vertical-align: text-bottom
@@ -204,7 +204,7 @@ INPUT.qq-edit-filename.qq-editing {
 
 .qq-edit-filename-icon {
   display: none;
-  background: url("#{$const-webapp-res}/fineuploader/edit.gif");
+  background: url("#{$webapp-respath}/fineuploader/edit.gif");
   width: 15px;
   height: 15px;
   vertical-align: text-bottom;

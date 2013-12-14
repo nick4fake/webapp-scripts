@@ -1670,13 +1670,13 @@ html, body {
 }
 /* General */
 .ui-icon, .ui-widget-content .ui-icon, .ui-widget-header .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_d4d4d4_0.png)
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_d4d4d4_0.png)
 }
 .ui-state-default .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_525252_0.png)
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_525252_0.png)
 }
 .ui-state-active .ui-icon, .ui-state-hover .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
 }
 .ui-widget-overlay {
   background: #ffffff;
@@ -1716,7 +1716,7 @@ html, body {
   background-color:    #ffffff !important;
   color:               #525252;
   border-color:        #d4d4d4 !important;
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_d4d4d4_0.png) !important;
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_d4d4d4_0.png) !important;
   background-position: -230px -213px !important;
 }
 .ui-accordion-header.ui-state-active a {
@@ -1737,21 +1737,21 @@ html, body {
   color: #ffffff;
 }
 .ui-accordion-header.ui-state-active .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_d4d4d4_0.png) !important;
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_d4d4d4_0.png) !important;
 }
 .ui-accordion-header.ui-state-default .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
 }
 .ui-accordion-header.ui-state-hover .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_66B3FF_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_66B3FF_0.png);
 }
 .ui-accordion-header {
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
   background-position: -230px -214px !important;
   background-repeat:   no-repeat !important;
 }
 .ui-accordion-header.ui-state-hover {
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
   background-position: -230px -166px !important;
 }
 
@@ -1802,17 +1802,17 @@ html, body {
   background-color: #ffffff !important;
 }
 .ui-dialog-titlebar .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
 }
 .ui-dialog-titlebar .ui-state-hover .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_3399ff_0.png) !important;
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_3399ff_0.png) !important;
 }
 .ui-dialog-titlebar-close {
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
   background-position: -232px -216px !important;
 }
 .ui-dialog-titlebar-close.ui-state-hover {
-  background:          url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
+  background:          url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
   background-position: -232px -168px !important;
 }
 
@@ -1893,23 +1893,23 @@ html, body {
   color:            #ffffff;
 }
 .ui-datepicker .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
 }
 
 .ui-datepicker .ui-state-hover .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_3399ff_0.png)
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_3399ff_0.png)
 }
 .ui-datepicker-next, .ui-datepicker-prev {
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
   background-position: -232px -216px;
 }
 .ui-datepicker-next-hover, .ui-datepicker-prev-hover {
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png) !important;
   background-position: -232px -168px !important;
   opacity:             1;
 }
 .ui-datepicker-next.ui-state-disabled, .ui-datepicker-prev.ui-state-disabled {
-  background-image:    url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image:    url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
   background-position: -232px -216px;
 }
 
@@ -1920,7 +1920,7 @@ html, body {
   background:   #efdca9;
 }
 .ui-state-highlight .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_525252_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_525252_0.png);
 }
 
 /* Error */
@@ -1930,6 +1930,6 @@ html, body {
   background:   #c31d1d;
 }
 .ui-state-error .ui-icon {
-  background-image: url(#{$const-webapp-res}/jquery.ui.core/images/ui-icons_ffffff_0.png);
+  background-image: url(#{$webapp-respath}/jquery.ui.core/images/ui-icons_ffffff_0.png);
 }
 
