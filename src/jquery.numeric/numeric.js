@@ -1,95 +1,291 @@
 /*
- Copyright (c) 2009, Pim Jager
- All rights reserved.
-
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- * The name Pim Jager may not be used to endorse or promote products
- derived from this software without specific prior written permission.
-
- THIS SOFTWARE IS PROVIDED BY Pim Jager ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL Pim Jager BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Copyright (c) 2006-2011 Sam Collett (http://www.texotela.co.uk)
+ * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+ * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ * 
+ * Version 1.3.1
+ * Demo: http://www.texotela.co.uk/code/jquery/numeric/
+ *
  */
-(function ($) {
-	//We use a small helper function that will return true when 'a' is undefined (so we can do if(checkUndefined(data)) return false;
-	//If we would continue with undefined data we would piss javascript off as we would be getting properties of an
-	//non-exsitent object (ie typeof data === 'undefined'; data.fooBar; //throws error
-	var checkUndefined = function (a) {
-		return typeof a === 'undefined';
-	}
-	$.expr[':'].data = function (elem, counter, params) {
-		if (checkUndefined(elem) || checkUndefined(params)) return false;
-		//:data(__) accepts 'dataKey', 'dataKey=Value', 'dataKey.InnerdataKey', 'dataKey.InnerdataKey=Value'
-		//Also instead of = we accept: != (does not equal Value), ^= (starts with Value),
-		//		$= (ends with Value), *=Value (contains Value);
-		//$(elem).data(dataKey) or $(elem).data(dataKey)[innerDataKey] (optional more innerDataKeys)
-		//When no value is speciefied we return all elements that have the dataKey specified, similar to [attribute]
-		var query = params[3]; //The part in the parenthesis, thus: selector:data( query )
-		if (!query) return false; //query can not be anything that evaluates to false, it has to be string
-		var querySplitted = query.split('='); //for dataKey=Value/dataKey.innerDataKey=Value
-		//We check if the condition was an =, an !=, an $= or an *=
-		var selectType = querySplitted[0].charAt(querySplitted[0].length - 1);
-		if (selectType == '^' || selectType == '$' || selectType == '!' || selectType == '*') {
-			querySplitted[0] = querySplitted[0].substring(0, querySplitted[0].length - 1);
-			//the ^=, *= and $= are only available when the $.stringQuery plugin is loaded, if it is not and any of these are used we return false
-			if (!$.stringQuery && selectType != '!') {
-				return false;
-			}
-		}
-		else selectType = '=';
-		var dataName = querySplitted[0]; //dataKey or dataKey.innerDataKey
-		//Now we go check if we need dataKey or dataKey.innerDataKey
-		var dataNameSplitted = dataName.split('.');
-		var data = $(elem).data(dataNameSplitted[0]);
-		if (checkUndefined(data)) return false;
-		if (dataNameSplitted[1]) {//We have innerDataKeys
-			for (i = 1, x = dataNameSplitted.length; i < x; i++) { //we start counting at 1 since we ignore the first value because that is the dataKey
-				data = data[dataNameSplitted[i]];
-				if (checkUndefined(data)) return false;
-			}
-		}
-		if (querySplitted[1]) { //should the data be of a specified value?
-			var checkAgainst = (data + '');
-			//We cast to string as the query will always be a string, otherwise boolean comparison may fail
-			//beacuse in javaScript true!='true' but (true+'')=='true'
-			//We use this switch to check if we chould check for =, $=, ^=, !=, *=
-			switch (selectType) {
-				case '=': //equals
-					return checkAgainst == querySplitted[1];
-					break;
-				case '!': //does not equeal
-					return checkAgainst != querySplitted[1];
-					break;
-				case '^': //starts with
-					return $.stringQuery.startsWith(checkAgainst, querySplitted[1]);
-					break;
-				case '$': //ends with
-					return $.stringQuery.endsWith(checkAgainst, querySplitted[1]);
-					break;
-				case '*': //contains
-					return $.stringQuery.contains(checkAgainst, querySplitted[1]);
-					break;
-				default: //default should never happen
-					return false;
-					break;
-			}
-		}
-		else { //the data does not have to be a speciefied value
-			//, just return true (we are here so the data is specified, otherwise false would have been returned by now)
-			return true;
-		}
-	}
+(function($) {
+    /*
+     * Allows only valid characters to be entered into input boxes.
+     * Note: fixes value when pasting via Ctrl+V, but not when using the mouse to paste
+     *      side-effect: Ctrl+A does not work, though you can still use the mouse to select (or double-click to select all)
+     *
+     * @name     numeric
+     * @param    config      { decimal : "." , negative : true }
+     * @param    callback     A function that runs if the number is not valid (fires onblur)
+     * @author   Sam Collett (http://www.texotela.co.uk)
+     * @example  $(".numeric").numeric();
+     * @example  $(".numeric").numeric(","); // use , as separator
+     * @example  $(".numeric").numeric({ decimal : "," }); // use , as separator
+     * @example  $(".numeric").numeric({ negative : false }); // do not allow negative values
+     * @example  $(".numeric").numeric(null, callback); // use default values, pass on the 'callback' function
+     *
+     */
+    $.fn.numeric = function(config, callback)
+    {
+        if(typeof config === 'boolean')
+        {
+            config = { decimal: config };
+        }
+        config = config || {};
+        // if config.negative undefined, set to true (default is to allow negative numbers)
+        if(typeof config.negative == "undefined") { config.negative = true; }
+        // set decimal point
+        var decimal = (config.decimal === false) ? "" : config.decimal || ".";
+        // allow negatives
+        var negative = (config.negative === true) ? true : false;
+        // callback function
+        callback = (typeof(callback) == "function" ? callback : function() {});
+        // set data and methods
+        return this.data("numeric.decimal", decimal).data("numeric.negative", negative).data("numeric.callback", callback).keypress($.fn.numeric.keypress).keyup($.fn.numeric.keyup).blur($.fn.numeric.blur);
+    };
+
+    $.fn.numeric.keypress = function(e)
+    {
+        // get decimal character and determine if negatives are allowed
+        var decimal = $.data(this, "numeric.decimal");
+        var negative = $.data(this, "numeric.negative");
+        // get the key that was pressed
+        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        // allow enter/return key (only when in an input box)
+        if(key == 13 && this.nodeName.toLowerCase() == "input")
+        {
+            return true;
+        }
+        else if(key == 13)
+        {
+            return false;
+        }
+        var allow = false;
+        // allow Ctrl+A
+        if((e.ctrlKey && key == 97 /* firefox */) || (e.ctrlKey && key == 65) /* opera */) { return true; }
+        // allow Ctrl+X (cut)
+        if((e.ctrlKey && key == 120 /* firefox */) || (e.ctrlKey && key == 88) /* opera */) { return true; }
+        // allow Ctrl+C (copy)
+        if((e.ctrlKey && key == 99 /* firefox */) || (e.ctrlKey && key == 67) /* opera */) { return true; }
+        // allow Ctrl+Z (undo)
+        if((e.ctrlKey && key == 122 /* firefox */) || (e.ctrlKey && key == 90) /* opera */) { return true; }
+        // allow or deny Ctrl+V (paste), Shift+Ins
+        if((e.ctrlKey && key == 118 /* firefox */) || (e.ctrlKey && key == 86) /* opera */ ||
+            (e.shiftKey && key == 45)) { return true; }
+        // if a number was not pressed
+        if(key < 48 || key > 57)
+        {
+            var value = $(this).val();
+            /* '-' only allowed at start and if negative numbers allowed */
+            if(value.indexOf("-") !== 0 && negative && key == 45 && (value.length === 0 || parseInt($.fn.getSelectionStart(this), 10) === 0)) { return true; }
+            /* only one decimal separator allowed */
+            if(decimal && key == decimal.charCodeAt(0) && value.indexOf(decimal) != -1)
+            {
+                allow = false;
+            }
+            // check for other keys that have special purposes
+            if(
+                key != 8 /* backspace */ &&
+                    key != 9 /* tab */ &&
+                    key != 13 /* enter */ &&
+                    key != 35 /* end */ &&
+                    key != 36 /* home */ &&
+                    key != 37 /* left */ &&
+                    key != 39 /* right */ &&
+                    key != 46 /* del */
+                )
+            {
+                allow = false;
+            }
+            else
+            {
+                // for detecting special keys (listed above)
+                // IE does not support 'charCode' and ignores them in keypress anyway
+                if(typeof e.charCode != "undefined")
+                {
+                    // special keys have 'keyCode' and 'which' the same (e.g. backspace)
+                    if(e.keyCode == e.which && e.which !== 0)
+                    {
+                        allow = true;
+                        // . and delete share the same code, don't allow . (will be set to true later if it is the decimal point)
+                        if(e.which == 46) { allow = false; }
+                    }
+                    // or keyCode != 0 and 'charCode'/'which' = 0
+                    else if(e.keyCode !== 0 && e.charCode === 0 && e.which === 0)
+                    {
+                        allow = true;
+                    }
+                }
+            }
+            // if key pressed is the decimal and it is not already in the field
+            if(decimal && key == decimal.charCodeAt(0))
+            {
+                if(value.indexOf(decimal) == -1)
+                {
+                    allow = true;
+                }
+                else
+                {
+                    allow = false;
+                }
+            }
+        }
+        else
+        {
+            allow = true;
+        }
+        return allow;
+    };
+
+    $.fn.numeric.keyup = function(e)
+    {
+        var val = $(this).val();
+        if(val && val.length > 0)
+        {
+            // get carat (cursor) position
+            var carat = $.fn.getSelectionStart(this);
+            var selectionEnd = $.fn.getSelectionEnd(this);
+            // get decimal character and determine if negatives are allowed
+            var decimal = $.data(this, "numeric.decimal");
+            var negative = $.data(this, "numeric.negative");
+
+            // prepend a 0 if necessary
+            if(decimal !== "" && decimal !== null)
+            {
+                // find decimal point
+                var dot = val.indexOf(decimal);
+                // if dot at start, add 0 before
+                if(dot === 0)
+                {
+                    this.value = "0" + val;
+                }
+                // if dot at position 1, check if there is a - symbol before it
+                if(dot == 1 && val.charAt(0) == "-")
+                {
+                    this.value = "-0" + val.substring(1);
+                }
+                val = this.value;
+            }
+
+            // if pasted in, only allow the following characters
+            var validChars = [0,1,2,3,4,5,6,7,8,9,'-',decimal];
+            // get length of the value (to loop through)
+            var length = val.length;
+            // loop backwards (to prevent going out of bounds)
+            for(var i = length - 1; i >= 0; i--)
+            {
+                var ch = val.charAt(i);
+                // remove '-' if it is in the wrong place
+                if(i !== 0 && ch == "-")
+                {
+                    val = val.substring(0, i) + val.substring(i + 1);
+                }
+                // remove character if it is at the start, a '-' and negatives aren't allowed
+                else if(i === 0 && !negative && ch == "-")
+                {
+                    val = val.substring(1);
+                }
+                var validChar = false;
+                // loop through validChars
+                for(var j = 0; j < validChars.length; j++)
+                {
+                    // if it is valid, break out the loop
+                    if(ch == validChars[j])
+                    {
+                        validChar = true;
+                        break;
+                    }
+                }
+                // if not a valid character, or a space, remove
+                if(!validChar || ch == " ")
+                {
+                    val = val.substring(0, i) + val.substring(i + 1);
+                }
+            }
+            // remove extra decimal characters
+            var firstDecimal = val.indexOf(decimal);
+            if(firstDecimal > 0)
+            {
+                for(var k = length - 1; k > firstDecimal; k--)
+                {
+                    var chch = val.charAt(k);
+                    // remove decimal character
+                    if(chch == decimal)
+                    {
+                        val = val.substring(0, k) + val.substring(k + 1);
+                    }
+                }
+            }
+            // set the value and prevent the cursor moving to the end
+            this.value = val;
+            $.fn.setSelection(this, [carat, selectionEnd]);
+        }
+    };
+
+    $.fn.numeric.blur = function()
+    {
+        var decimal = $.data(this, "numeric.decimal");
+        var callback = $.data(this, "numeric.callback");
+        var val = this.value;
+        if(val !== "")
+        {
+            var re = new RegExp("^\\d+$|^\\d*" + decimal + "\\d+$");
+            if(!re.exec(val))
+            {
+                callback.apply(this);
+            }
+        }
+    };
+
+    $.fn.removeNumeric = function()
+    {
+        return this.data("numeric.decimal", null).data("numeric.negative", null).data("numeric.callback", null).unbind("keypress", $.fn.numeric.keypress).unbind("blur", $.fn.numeric.blur);
+    };
+
+// Based on code from http://javascript.nwbox.com/cursor_position/ (Diego Perini <dperini@nwbox.com>)
+    $.fn.getSelectionStart = function(o)
+    {
+        if (o.createTextRange)
+        {
+            var r = document.selection.createRange().duplicate();
+            r.moveEnd('character', o.value.length);
+            if (r.text === '') { return o.value.length; }
+            return o.value.lastIndexOf(r.text);
+        } else { return o.selectionStart; }
+    };
+
+// Based on code from http://javascript.nwbox.com/cursor_position/ (Diego Perini <dperini@nwbox.com>)
+    $.fn.getSelectionEnd = function(o)
+    {
+        if (o.createTextRange) {
+            var r = document.selection.createRange().duplicate()
+            r.moveStart('character', -o.value.length)
+            return r.text.length
+        } else return o.selectionEnd
+    }
+
+// set the selection, o is the object (input), p is the position ([start, end] or just start)
+    $.fn.setSelection = function(o, p)
+    {
+        // if p is number, start and end are the same
+        if(typeof p == "number") { p = [p, p]; }
+        // only set if p is an array of length 2
+        if(p && p.constructor == Array && p.length == 2)
+        {
+            if (o.createTextRange)
+            {
+                var r = o.createTextRange();
+                r.collapse(true);
+                r.moveStart('character', p[0]);
+                r.moveEnd('character', p[1]);
+                r.select();
+            }
+            else if(o.setSelectionRange)
+            {
+                o.focus();
+                o.setSelectionRange(p[0], p[1]);
+            }
+        }
+    };
+
 })(jQuery);

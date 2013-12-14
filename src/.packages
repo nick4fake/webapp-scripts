@@ -8,10 +8,12 @@ google-analytics
 highcharts
 html5shiv
 jquery
+jquery.autonumeric
 jquery.bundle
 jquery.cookie
 jquery.cycle
 jquery.fancybox
+jquery.fineuploader
 jquery.flash
 jquery.form
 jquery.json
@@ -20,6 +22,7 @@ jquery.meiomask
 jquery.misc
 jquery.numeric
 jquery.poshytip
+jquery.textchange
 jquery.tree
 jquery.ui
 jquery.ui.core
@@ -33,6 +36,7 @@ tinymce
 tinymce.jquery
 tinymce.popup
 tinymce.webapp
+underscore
 webapp
 webapp.moment
 yandex-metrika

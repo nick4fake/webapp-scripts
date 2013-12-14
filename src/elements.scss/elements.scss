@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 @mixin -gradient-ms($start, $stop) {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$stop}')";
 }
@@ -176,4 +178,29 @@
   height:        0;
   line-height:   0;
   display:       inline-block;
+}
+@mixin no-text {
+  text-indent: 1500%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin arrow-left($width, $height, $color) {
+  border-top: solid $height/2 transparent;
+  border-bottom: solid $height/2 transparent;
+  border-right: solid $width/2 $color;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  display: inline-block;
+}
+
+@mixin arrow-right($width, $height, $color) {
+  border-top: solid $height/2 transparent;
+  border-bottom: solid $height/2 transparent;
+  border-left: solid $width/2 $color;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  display: inline-block;
 }
