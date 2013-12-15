@@ -13,6 +13,7 @@ jquery.bundle
 jquery.cookie
 jquery.cycle
 jquery.fancybox
+jquery.fileuploader
 jquery.fineuploader
 jquery.flash
 jquery.form
