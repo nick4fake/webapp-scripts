@@ -1,0 +1,3 @@
+definejs('jquery', function () {
+    return $;
+});
