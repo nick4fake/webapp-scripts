@@ -14,19 +14,19 @@ void function ($, generalClass) {
     "use strict";
 
     var defSettings = {
-        bools:        {
+        bools:          {
             btrue:  'да',
             bfalse: 'нет'
         },
-        panel:        null,
-        paging:       null,
+        panel:          null,
+        paging:         null,
         disable_submit: false,
-        noresMessage: 'Ничего не найдено',
-        colregex:     {
+        noresMessage:   'Ничего не найдено',
+        colregex:       {
             exp:   /^(.*\s)?col-([a-z0-9_A-Z]+)(\s.*)?$/,
             index: 2
         },
-        pagingParams: {
+        pagingParams:   {
             num_edge_entries:    1,
             num_display_entries: 4,
             callback:            null,
@@ -64,7 +64,7 @@ void function ($, generalClass) {
                     } else if (!data.countTotal) {
                         context.updateState(settings.noresMessage);
                     } else {
-                        context.updateState(data.rows,data.summary);
+                        context.updateState(data.rows, data.summary);
                     }
                     if (page) {
                         if (data.countPage < page.attr('value')) {
@@ -87,13 +87,14 @@ void function ($, generalClass) {
                 }, post, {root: null});
             });
             return function () {
-                if(settings.disable_submit==false)
+                if (settings.disable_submit == false)
                     form.submit();
             };
         },
         updateRows:     function (columns, target, rows, settings, summary, targetfoot) {
-            var column, tr, td, i, rowind, row, text, cont, thisisfoot = false;
-            var r = function (column, row, tr){
+            var tr, td, i, rowind, row, text, cont, thisisfoot = false,
+                settings = $.extend({}, defSettings, settings);
+            var r = function (column, row, tr) {
                 td = document.createElement('td');
                 tr.appendChild(td);
                 td.className = 'col-' + column.name + ' type-' + column.type;
@@ -137,7 +138,7 @@ void function ($, generalClass) {
                     r(columns[i], row, tr);
                 target.appendChild(tr);
             }
-            if(thisisfoot = (summary && targetfoot)){
+            if (thisisfoot = (summary && targetfoot)) {
                 tr = document.createElement('tr');
                 for (i = 0; i < columns.length; i++)
                     r(columns[i], summary, tr);
@@ -245,7 +246,7 @@ void function ($, generalClass) {
                 $(this).closest('form').submit();
             });
 
-            this.updateEnable = function(){
+            this.updateEnable = function () {
                 settings.disable_submit = false;
             };
             this.update = f.bindFormUpdate(this, settings);
@@ -286,7 +287,7 @@ void function ($, generalClass) {
                         this.updateRows(this.columns, tBody.get(0), data, {}, summary, tFoot.get(0));
                     } else {
                         this.updateState(settings.noresMessage);
-                        if(settings.forceSummary && summary!='undefined')
+                        if (settings.forceSummary && summary != 'undefined')
                             this.updateRows(this.columns, tBody.get(0), data, {}, summary, tFoot.get(0));
                     }
                 } else {
