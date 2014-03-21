@@ -1,5 +1,3 @@
-@import "compass/css3";
-
 @mixin -gradient-ms($start, $stop) {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start}', endColorstr='#{$stop}')";
 }
@@ -135,14 +133,6 @@
   margin:   -$height/2 0 0 0 -$width/2;
   height:   $height;
   width:    $width;
-}
-@mixin input-placeholder($param) {
-  &::-webkit-input-placeholder {
-    $test;
-  }
-  &:-moz-placeholder {
-    $test;
-  }
 }
 @mixin box-sizing($param) {
   -moz-box-sizing:    $param;
